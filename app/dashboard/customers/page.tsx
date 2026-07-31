@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { Search, Filter, MoreHorizontal, Mail, MapPin, ExternalLink } from 'lucide-react';
 
 const mockCustomers = Array.from({ length: 10 }, (_, i) => ({
@@ -14,24 +15,32 @@ const mockCustomers = Array.from({ length: 10 }, (_, i) => ({
 }));
 
 export default function CustomersPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredCustomers = mockCustomers.filter(c => 
+    c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.location.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Customers</h1>
-          <p className="text-gray-400 text-sm">Manage your customer base</p>
+          <h1 className="text-2xl font-bold text-white mb-1">Customers</h1>
+          <p className="text-gray-400 text-sm">View customer insights and purchase histories</p>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Total Customers', value: '2,340', trend: '+12% this month' },
-          { label: 'New This Month', value: '145', trend: '+5% vs last month' },
-          { label: 'Returning', value: '68%', trend: '+2% vs last month' },
-          { label: 'Avg. Order Value', value: '$85.00', trend: '+$5.00 vs last month' }
+          { label: 'Total Customers', value: '2,340', trend: '+15.3% this month' },
+          { label: 'New This Month', value: '184', trend: '+8.2% vs last month' },
+          { label: 'Returning Rate', value: '42.5%', trend: '+3.1% loyalty rate' },
+          { label: 'Avg Lifetime Value', value: '$485.00', trend: '+12.4% AOV' }
         ].map((stat, i) => (
-          <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors shadow-lg">
+          <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors">
             <h3 className="text-gray-400 text-sm font-medium mb-1">{stat.label}</h3>
             <p className="text-3xl font-bold text-white mb-2">{stat.value}</p>
             <p className="text-xs text-green-400 font-medium">{stat.trend}</p>
@@ -45,6 +54,8 @@ export default function CustomersPage() {
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input 
             type="text" 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search customers..." 
             className="w-full pl-10 pr-4 py-2 bg-black/20 border border-white/10 rounded-lg text-sm focus:outline-none focus:border-cyan-500 transition-colors text-white"
           />
@@ -70,7 +81,7 @@ export default function CustomersPage() {
               </tr>
             </thead>
             <tbody className="text-sm divide-y divide-white/5">
-              {mockCustomers.map((customer, idx) => (
+              {filteredCustomers.map((customer, idx) => (
                 <tr key={customer.id} className={`hover:bg-white/[0.08] transition-colors group ${idx % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.02]'}`}>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-4">

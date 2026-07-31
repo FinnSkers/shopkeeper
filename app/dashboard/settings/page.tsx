@@ -4,6 +4,7 @@ import { Store, CreditCard, Bell, Users, Upload, Shield, Check } from 'lucide-re
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('store');
+  const [isSaved, setIsSaved] = useState(false);
 
   const tabs = [
     { id: 'store', label: 'Store Details', icon: Store },
@@ -192,9 +193,18 @@ export default function SettingsPage() {
           )}
 
           {/* Action Footer */}
-          <div className="mt-8 pt-6 border-t border-white/10 flex justify-end">
-            <button className="px-6 py-2.5 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors shadow-lg shadow-white/10">
-              Save Changes
+          <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+            <span className="text-xs text-gray-400">
+              {isSaved ? <span className="text-emerald-400 font-semibold flex items-center gap-1.5"><Check size={16} /> All settings saved successfully!</span> : 'Unsaved changes are saved automatically upon clicking.'}
+            </span>
+            <button 
+              onClick={() => {
+                setIsSaved(true);
+                setTimeout(() => setIsSaved(false), 3000);
+              }}
+              className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-bold rounded-xl hover:scale-105 transition-all shadow-lg shadow-purple-500/25"
+            >
+              {isSaved ? 'Saved!' : 'Save Changes'}
             </button>
           </div>
 
