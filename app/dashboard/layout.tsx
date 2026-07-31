@@ -133,15 +133,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button className="relative p-2 text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/5">
               <Bell size={20} />
               <span className="absolute top-1 right-1 w-2 h-2 bg-cyan-400 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.8)]"></span>
             </button>
-            <button className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:scale-105">
+            <Link 
+              href="/dashboard/stores/new"
+              className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-500 hover:scale-105 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all shadow-[0_0_15px_rgba(168,85,247,0.4)]"
+            >
+              <Plus size={16} />
+              Create New Store
+            </Link>
+            <Link 
+              href="/dashboard/products"
+              className="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/10 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all"
+            >
               <Plus size={16} />
               New Product
-            </button>
+            </Link>
           </div>
         </header>
 
