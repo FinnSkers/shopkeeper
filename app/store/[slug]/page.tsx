@@ -129,11 +129,19 @@ export default function StoreHome({ params }: { params: Promise<{ slug: string }
               key={product.id}
               className="group block relative rounded-2xl bg-white/5 border border-white/10 overflow-hidden hover:scale-105 hover:shadow-2xl hover:border-purple-500/30 transition-all duration-300"
             >
-              <div className="aspect-square bg-gradient-to-br from-purple-900/20 to-cyan-900/20 flex items-center justify-center p-6 relative">
-                <ShoppingBag className="w-12 h-12 text-purple-400/60 group-hover:text-purple-300 transition-colors" />
+              <div className="aspect-square bg-gradient-to-br from-purple-900/20 to-cyan-900/20 flex items-center justify-center relative overflow-hidden">
+                {product.image_url || product.name.includes('Headphones') ? (
+                  <img 
+                    src={product.image_url || (product.name.includes('Headphones') ? '/images/cyber_headphones.jpg' : product.name.includes('Lamp') ? '/images/desk_lamp.jpg' : product.name.includes('Keyboard') ? '/images/mechanical_keyboard.jpg' : '/images/smart_watch.jpg')} 
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                ) : (
+                  <ShoppingBag className="w-12 h-12 text-purple-400/60 group-hover:text-purple-300 transition-colors" />
+                )}
                 
                 {/* Floating overlay actions */}
-                <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                   <button className="p-2 bg-black/60 rounded-full backdrop-blur-md hover:bg-purple-600 transition-colors">
                     <Heart className="w-4 h-4 text-white" />
                   </button>
@@ -142,7 +150,7 @@ export default function StoreHome({ params }: { params: Promise<{ slug: string }
                   </button>
                 </div>
 
-                <span className="absolute bottom-3 left-3 px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-white backdrop-blur-md border border-white/10">
+                <span className="absolute bottom-3 left-3 px-2 py-0.5 rounded text-[10px] font-semibold bg-black/60 text-white backdrop-blur-md border border-white/10 z-10">
                   {product.category}
                 </span>
               </div>

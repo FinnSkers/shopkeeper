@@ -119,9 +119,9 @@ values (
   'Official 3D Spatial Demo Store for ShopKeeper Platform'
 ) on conflict (slug) do nothing;
 
-insert into public.products (store_id, name, description, price, original_price, category)
+insert into public.products (store_id, name, description, price, original_price, category, image_url)
 values 
-  ('00000000-0000-0000-0000-000000000001', 'Cyber-Spatial Headphones Pro', 'Next-gen spatial audio headset crafted with lightweight magnesium alloy.', 299.99, 349.99, 'Electronics'),
-  ('00000000-0000-0000-0000-000000000001', 'Minimal Ergonomic Desk Lamp', 'Adjustable LED desk lamp with touch intensity controls.', 89.00, 110.00, 'Home & Living'),
-  ('00000000-0000-0000-0000-000000000001', 'Mechanical Wireless Keyboard', 'Hot-swappable RGB mechanical keyboard with custom switches.', 149.00, 179.00, 'Electronics')
+  ('00000000-0000-0000-0000-000000000001', 'Cyber-Spatial Headphones Pro', 'Next-gen spatial audio headset crafted with lightweight magnesium alloy.', 299.99, 349.99, 'Electronics', '/images/cyber_headphones.jpg'),
+  ('00000000-0000-0000-0000-000000000001', 'Minimal Ergonomic Desk Lamp', 'Adjustable LED desk lamp with touch intensity controls.', 89.00, 110.00, 'Home & Living', '/images/desk_lamp.jpg'),
+  ('00000000-0000-0000-0000-000000000001', 'Mechanical Wireless Keyboard', 'Hot-swappable RGB mechanical keyboard with custom switches.', 149.00, 179.00, 'Electronics', '/images/mechanical_keyboard.jpg')
 on conflict do nothing;
