@@ -4,6 +4,7 @@ import { useState, use } from 'react';
 import Link from 'next/link';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cart';
+import AiChatAssistant from '@/components/storefront/AiChatAssistant';
 
 export default function StoreLayout({ children, params }: { children: React.ReactNode, params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -62,6 +63,8 @@ export default function StoreLayout({ children, params }: { children: React.Reac
       </header>
 
       <main className="flex-1">{children}</main>
+
+      <AiChatAssistant storeSlug={slug} />
 
       <footer className="border-t border-white/10 mt-20 py-12 bg-[#05050f]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
