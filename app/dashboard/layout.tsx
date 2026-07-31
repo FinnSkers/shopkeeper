@@ -16,7 +16,8 @@ import {
   X,
   LogOut,
   User,
-  Sparkles
+  Sparkles,
+  Activity
 } from 'lucide-react';
 
 const navItems = [
@@ -26,6 +27,7 @@ const navItems = [
   { name: 'Orders', href: '/dashboard/orders', icon: ShoppingCart },
   { name: 'Customers', href: '/dashboard/customers', icon: Users },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
+  { name: 'System Status', href: '/dashboard/status', icon: Activity },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
