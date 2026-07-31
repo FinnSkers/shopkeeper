@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Search, Plus, Filter, MoreHorizontal, Image as ImageIcon, X, Sparkles, Loader2 } from 'lucide-react';
+import { Search, Plus, Filter, MoreHorizontal, Image as ImageIcon, X, Sparkles, Loader2, Download } from 'lucide-react';
 
 const mockProducts = [
   { id: 1, name: 'Minimalist Desk Lamp', price: '$89.00', stock: 45, status: 'Active', category: 'Lighting' },
@@ -20,6 +20,19 @@ const mockProducts = [
 export default function ProductsPage() {
   const [activeTab, setActiveTab] = useState('All');
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleExportCsv = () => {
+    const headers = ['ID', 'Name', 'Price', 'Stock', 'Status', 'Category'];
+    const rows = mockProducts.map(p => [p.id, `"${p.name}"`, p.price, p.stock, p.status, p.category]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'shopkeeper_inventory.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   // Form State with AI
   const [formData, setFormData] = useState({
@@ -76,7 +89,13 @@ export default function ProductsPage() {
           <h1 className="text-2xl font-bold text-white">Products</h1>
           <p className="text-gray-400 text-sm">Manage your store's inventory & 3D models</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
+          <button
+            onClick={handleExportCsv}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300 hover:text-white hover:bg-white/10 transition-colors"
+          >
+            <Download size={15} /> Export CSV
+          </button>
           <div className="relative">
             <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input 
