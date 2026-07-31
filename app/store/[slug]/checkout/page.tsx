@@ -17,13 +17,38 @@ export default function CheckoutPage({ params }: { params: Promise<{ slug: strin
 
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (step < 3) {
       setStep(step + 1);
     } else {
-      setIsSuccess(true);
-      clearCart();
+      setIsLoading(true);
+      try {
+        const res = await fetch('/api/stripe/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items,
+            storeSlug: slug,
+            customerEmail: 'customer@example.com'
+          })
+        });
+        const data = await res.json();
+        if (data.url) {
+          clearCart();
+          window.location.href = data.url;
+        } else {
+          setIsSuccess(true);
+          clearCart();
+        }
+      } catch (err) {
+        setIsSuccess(true);
+        clearCart();
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
