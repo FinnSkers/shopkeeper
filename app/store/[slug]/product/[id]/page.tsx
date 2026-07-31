@@ -5,6 +5,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { Star, Minus, Plus, Heart, ShieldCheck, Truck, ArrowLeft, Sparkles, Box } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cart';
+import ProductReviews from '@/components/storefront/ProductReviews';
 
 // Dynamically import 3D Product Viewer for browser WebGL rendering
 const ProductViewer = dynamic(() => import('@/components/three/ProductViewer'), { ssr: false });
@@ -186,6 +187,9 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
 
         </div>
       </div>
+
+      {/* Customer Reviews Section */}
+      <ProductReviews productName={MOCK_PRODUCT.name} />
     </div>
   );
 }
